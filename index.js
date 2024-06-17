@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const FS = fs.process;
 const https = require('https');
 const axios = require('axios');
 const app = express();
@@ -70,7 +71,7 @@ async function createEndFile(type, curTime) {
         const innert1 = await new Promise((resolve, reject) => {
             const process = exec(`${ffmpeg} -stream_loop -1 -i ${curTime}-v.mp4 -c:v libx264 -t ${audioTime} ${curTime}-tmp.mp4`);
             process.on('close', (code) => {
-                setTimeout(()=>fs.unlinkSync(`${curTime}.mp4`).catch(err=>null), 30000);
+                setTimeout(()=>FS.unlink(`${curTime}.mp4`).catch(err=>null), 30000);
                 if(code!==0) reject(code);
                 else resolve(true);
             });
@@ -80,7 +81,7 @@ async function createEndFile(type, curTime) {
         const innert2 = await new Promise((resolve, reject) => {
             const process = exec(`${ffmpeg} -i ${curTime}-tmp.mp4 -i ${curTime}-a.mp3 -c:v copy -c:a copy ${curTime}.mp4`);
             process.on('close', (code) => {
-                setTimeout(()=>fs.unlinkSync(`${curTime}.mp4`).catch(err=>null), 30000);
+                setTimeout(()=>FS.unlink(`${curTime}.mp4`).catch(err=>null), 30000);
                 if(code!==0) reject(code);
                 else resolve(true);
             });
@@ -92,7 +93,7 @@ async function createEndFile(type, curTime) {
         const innert = await new Promise((resolve, reject) => {
             const process = exec(`${ffmpeg} -i ${curTime}-v.mp4 -i ${curTime}-a.mp3 -c:v copy -c:a aac -shortest ${curTime}.mp4`);
             process.on('close', (code) => {
-                setTimeout(()=>fs.unlinkSync(`${curTime}.mp4`).catch(err=>null), 30000);
+                setTimeout(()=>FS.unlink(`${curTime}.mp4`).catch(err=>null), 30000);
                 if(code!==0) reject(code);
                 else resolve(true);
             });
@@ -107,7 +108,7 @@ async function createEndFile(type, curTime) {
             const process = exec(`${ffmpeg} -stream_loop 1 -i ${curTime}-v.mp4 -i ${curTime}-a.mp3 -c:v copy -c:a aac -t ${videoTime*2} ${curTime}.mp4`);
             process.on('close', (code) => {
                 console.error('createEndFile 1, код завершения: ', code);
-                setTimeout(()=>fs.unlinkSync(`${curTime}.mp4`).catch(err=>null), 30000);
+                setTimeout(()=>FS.unlink(`${curTime}.mp4`).catch(err=>null), 30000);
                 if(code!==0) reject(code);
                 else resolve(true);
             });
@@ -141,7 +142,7 @@ function downloadFile(url, filename) {
             file.on('finish', function() {
                 file.close();
                 resolve(filename);
-                setTimeout(()=>fs.unlinkSync(filename).catch(err=>null), 30000)
+                setTimeout(()=>FS.unlink(filename).catch(err=>null), 30000)
             });
         }).on('error', function(err) {
             console.log('Что-то пошло не так при скачивании файла '+filename, url);
