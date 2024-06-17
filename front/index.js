@@ -2,6 +2,29 @@ const nav = document.querySelector(".nav");
 window.addEventListener("scroll", fixNav);
 const apiUrl = location.protocol+"//"+location.host;
 
+const changeLangBtn = document.getElementById("chaneLang");
+var lang = "RU";
+changeLangBtn.onclick = ()=>{
+    lang = changeLangBtn.innerHTML == "RU"?"EN":"RU";
+    changeLangBtn.innerHTML = lang;
+    chaneLangs([lang=="RU"?0:1]);
+};
+
+const langLon = {
+    vidAud: ["Видео + Аудио", "Video + Audio"],
+    audVid: ["Аудио + Видео", "Audio + Video"],
+    fix2vid: ["Fixed Видео*2 + Аудио", "Fixed Video*2 + Audio"],
+    audio: ["Аудио", "Audio"],
+    video: ["Видео", "Video"],
+    info: ["Вставьте ссылку", "Insert link", "Не, ну она кривая...", "Wrong link...", "Yeeep! Эту ссылку можно скачать", "You can download it"],
+    dropbtn: ["Скачать", "Download"],
+    copied: ["Скопировано!", "Copied"],
+};
+function chaneLangs(lang) {
+    for(const it in langLon){
+        document.getElementById(it).innerHTML = langLon[it][lang];
+    }
+}
 function fixNav() { 
 	if (window.scrollY > nav.offsetHeight + 150) nav.classList.add("active");
     else nav.classList.remove("active");
@@ -47,10 +70,10 @@ const downloadBtn = document.getElementById("dropbtn");
 
 input.addEventListener("input", (e)=>{
     if(/^https:\/\/coub.com\/(view\/|embed\/)/g.test(input.value)){
-        info.innerText = "Yeeep! Эту ссылку можно скачать"; 
+        info.innerText = langLon.info[lang=="RU"?4:5]; 
         downloadBtn.disabled = false;
     }else {
-        info.innerText = "Не, ну она кривая..."; 
+        info.innerText = langLon.info[lang=="RU"?2:3]; 
         downloadBtn.disabled = true;
     }
 });
