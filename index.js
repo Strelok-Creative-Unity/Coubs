@@ -30,7 +30,7 @@ const later = (delay, value) =>
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, './front/index.html'));
 });
-app.get("/", async (req, res)=>{
+app.get("/api", async (req, res)=>{
     res.send({"message": "Нет, подожди.. Для API там точно был post запрос..."})
 });
 app.post("/api", async (req, res)=>{
