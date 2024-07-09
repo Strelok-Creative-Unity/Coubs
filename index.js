@@ -30,6 +30,9 @@ const later = (delay, value) =>
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, './front/index.html'));
 });
+app.get("/", async (req, res)=>{
+    res.send({"message": "Нет, подожди.. Для API там точно был post запрос..."})
+});
 app.post("/api", async (req, res)=>{
     if(config.useRequestQueue) {
         if(requestQueue.length > config.requestQueueLength) return res.send({error:"queue is full"});
@@ -41,6 +44,7 @@ app.listen(config.port);
 
 async function apiFunc(req,res){
     const {body:{url,type}} = req;
+    if(!url||!type) res.send({error: "Data not providet"});
     const id = url.match(/^https:\/\/coub.com\/(view\/|embed\/)(.{4,6})/mi)[2];
     const dat = await axios.get("https://coub.com/api/v2/coubs/"+id).catch(err=>{return {error: "Request error", err};});
     if(dat.error) return res.send(dat);

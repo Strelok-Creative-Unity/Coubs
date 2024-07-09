@@ -3,5 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 14443 14080
+ENV QUEUE=true;
+ENV QUEUE_LENGTH=10;
+ENV PORT=14080;
+EXPOSE 14080
 CMD ["npm", "start"]
