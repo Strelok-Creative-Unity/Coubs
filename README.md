@@ -1,4 +1,4 @@
-# [Coubs Downloader](https://coubs.justcoders.ru)
+# [Coubs Downloader](https://coub.justcoders.ru)
 The Coubs downloader is a simple API and html interface for downloading coub from a website coub.com 
 
 ## Available options: 
