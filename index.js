@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const FS = fs.process;
+const FS = fs.promises;
 const https = require('https');
 const axios = require('axios');
 const app = express();
@@ -22,7 +22,7 @@ if(process.env.QUEUE_LENGTH) config.requestQueueLength = process.env.QUEUE_LENGT
 
 // queue
 const requestQueue = [];
-const later = (delay, value) =>
+const later = (delay, value=1) =>
     new Promise(resolve => setTimeout(resolve, delay, value));
 
 
