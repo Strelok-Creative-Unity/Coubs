@@ -11,61 +11,56 @@
 
 </head>
 <body>
-    <!-- Nav -->
-
-    <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-          <div class="nav-title">
+<!-- Nav -->
+<div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+        <div class="nav-title">
             JC-Coubs
-          </div>
         </div>
-        <div class="nav-btn">
-          <label for="nav-check">
+    </div>
+    <div class="nav-btn">
+        <label for="nav-check">
             <span></span>
             <span></span>
             <span></span>
-          </label>
-        </div>
-        
-        <div class="nav-links">
-            <a id="copied" style="display: none;">Скопировано!</a>
-            <a onclick="copy()" id="mail" href="#" class="mail">strelok@justcoders.ru</a>
-            <a href="https://prof.justcoders.ru/strelok" target="_blank">Just Coders</a>
-            <a id="chaneLang">RU</a>
-        </div>
-      </div>
-    
-    <!-- NavEnd -->
+        </label>
+    </div>
 
-    <!-- Main -->
-      <div class="main">
-        <h1>JC-Coub</h1>
-        <div class="text-field">
-            <div class="text-field__group">
-                <input class="text-field__input" placeholder="Ссылка" type="search" id="input" name="search">
-                <div class="dropdown">
-                    <button id="dropbtn" onclick="menuOpenFunc()" class="dropbtn" disabled>Скачать</button>
-                    <div id="myDropdown" class="dropdown-content">
-                      <a href="#" id="vidAud" onclick="downloadButton(`vidAud`)">Видео + Аудио</a>
-                      <a href="#" id="audVid" onclick="downloadButton(`audVid`)">Аудио + Видео</a>
-                      <a href="#" id="fix2vid" onclick="downloadButton(`fix2vid`)">Fixed Видео*2 + Аудио</a>
-                      <a href="#" id="audio" onclick="downloadButton(`audio`)">Аудио</a>
-                      <a href="#" id="video" onclick="downloadButton(`video`)">Видео</a>
-                    </div>
-                  </div>
-                  <h3 class="info" id="info">Вставьте ссылку</h3>
+    <div class="nav-links">
+        <a id="copied" style="display: none;">Скопировано!</a>
+        <a onclick="copy()" id="mail" href="#" class="mail">strelok@justcoders.ru</a>
+        <a href="https://prof.justcoders.ru/strelok" target="_blank">Just Coders</a>
+        <a id="chaneLang">RU</a>
+    </div>
+</div>
+<!-- NavEnd -->
+
+<!-- Main -->
+<div class="main">
+    <h1>JC-Coub</h1>
+    <div class="text-field">
+        <div class="text-field__group">
+            <input class="text-field__input" placeholder="Ссылка" type="search" id="input" name="search">
+            <div class="dropdown">
+                <button id="dropbtn" onclick="menuOpenFunc()" class="dropbtn" disabled>Скачать</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#" id="vidAud" onclick="downloadButton(`vidAud`)">Видео + Аудио</a>
+                    <a href="#" id="audVid" onclick="downloadButton(`audVid`)">Аудио + Видео</a>
+                    <a href="#" id="fix2vid" onclick="downloadButton(`fix2vid`)">Fixed Видео*2 + Аудио</a>
+                    <a href="#" id="audio" onclick="downloadButton(`audio`)">Аудио</a>
+                    <a href="#" id="video" onclick="downloadButton(`video`)">Видео</a>
+                </div>
             </div>
+            <h3 class="info" id="info">Вставьте ссылку</h3>
         </div>
-      </div>
+    </div>
+</div>
+<!-- Main End -->
 
-
-    <!-- Main -->
-
-    <!-- Footer -->
-
-      <footer class="footer">Designed by Silph</footer>
-      <script src="index.js"></script>
-    <!-- Footer -->
+<!-- Footer -->
+<footer class="footer">Designed by Silph</footer>
+<script src="index.js"></script>
+<!-- Footer End -->
 </body>
 </html>
