@@ -1,13 +1,15 @@
 const nav = document.querySelector(".nav");
-window.addEventListener("scroll", fixNav);
-const apiUrl = location.protocol+"//"+location.host;
-
+const apiUrl = `${location.protocol}//${location.host}`;
 const changeLangBtn = document.getElementById("chaneLang");
-var lang = "RU";
+let lang = "RU";
+
+window.addEventListener("scroll", fixNav);
+
 changeLangBtn.onclick = ()=>{
-    lang = changeLangBtn.innerHTML == "RU"?"EN":"RU";
+    lang = changeLangBtn.innerHTML === "RU" ? "EN" : "RU";
     changeLangBtn.innerHTML = lang;
-    chaneLangs([lang=="RU"?0:1]);
+
+    chaneLanguage([lang === "RU" ? 0 : 1]);
 };
 
 const langLon = {
@@ -20,39 +22,37 @@ const langLon = {
     dropbtn: ["Скачать", "Download"],
     copied: ["Скопировано!", "Copied"],
 };
-function chaneLangs(lang) {
+
+function chaneLanguage(lang) {
     for(const it in langLon){
         document.getElementById(it).innerHTML = langLon[it][lang];
     }
 }
-function fixNav() { 
-	if (window.scrollY > nav.offsetHeight + 150) nav.classList.add("active");
+
+function fixNav() {
+    if (window.scrollY > nav.offsetHeight + 150) nav.classList.add("active");
     else nav.classList.remove("active");
 }
-function menuOpenFunc() { 
+
+function menuOpenFunc() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
-function download(url,id) { 
+
+function download(url,id) {
     const a = document.createElement('a');
     a.href = url;
-    a.download = "JC_Coub."+(id==="audio"?"mp3":"mp4"); 
+    a.download = "JC_Coub."+(id === "audio" ? "mp3" : "mp4");
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 }
-function copy(){ 
-    const area = document.createElement('textarea');
-  
-    document.body.appendChild(area);  
-      area.value = "strelok@justcoders.ru";
-      area.select();
-      document.execCommand("copy");
-    document.body.removeChild(area);  
-    document.getElementById("copied").style.display = "inline-block";
-    setTimeout(()=>document.getElementById("copied").style.display = "none",1000);
 
+function copy(){
+    window.navigator.clipboard.writeText(input.value).then(() => {
+        setTimeout(()=>document.getElementById("copied").style.display = "none",1000);
+    });
 }
-  
+
 window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
         const dropdowns = document.getElementsByClassName("dropdown-content");
@@ -64,23 +64,26 @@ window.onclick = function(event) {
         }
     }
 };
+
 const info = document.getElementById("info");
 const input = document.getElementById("input");
 const downloadBtn = document.getElementById("dropbtn");
 
-input.addEventListener("input", (e)=>{
+input.addEventListener("input", ()=>{
     if(/^https:\/\/coub.com\/(view\/|embed\/)/g.test(input.value)){
-        info.innerText = langLon.info[lang=="RU"?4:5]; 
+        info.innerText = langLon.info[lang==="RU" ? 4 : 5];
         downloadBtn.disabled = false;
-    }else {
-        info.innerText = langLon.info[lang=="RU"?2:3]; 
+    }
+    else {
+        info.innerText = langLon.info[lang==="RU" ? 2 : 3];
         downloadBtn.disabled = true;
     }
 });
 
-async function downloadButton(id){ 
+async function downloadButton(id){
     info.innerText = "Обработка";
     downloadBtn.disabled = true;
+
     const rawResponse = await fetch(apiUrl+'/api', {
         method: 'POST',
         headers: {
@@ -89,6 +92,7 @@ async function downloadButton(id){
         },
         body: JSON.stringify({url:input.value, type:id})
     });
+
     const contentType = rawResponse.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
         const json = await rawResponse.json();
@@ -98,12 +102,12 @@ async function downloadButton(id){
             downloadBtn.disabled = false;
             info.innerText = "Вставьте ссылку на видео";
         }, 1500);
-    }else {
+    }
+    else {
         const blob = await rawResponse.blob();
         const file = window.URL.createObjectURL(blob);
         download(file,id);
         downloadBtn.disabled = false;
-        info.innerText = "Вставьте ссылку на видео";  
+        info.innerText = "Вставьте ссылку на видео";
     }
-    
 }
